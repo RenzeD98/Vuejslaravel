@@ -38,4 +38,9 @@ class ProductController extends Controller
 
         return http_response_code(200);
     }
+
+    public function updateProduct(Request $request)
+    {
+        Product::find($request->id)->update(['name' => $request->name]);
+    }
 }

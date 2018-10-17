@@ -18,7 +18,7 @@
                 <div class="card" v-for="item in filterProducts">
                     <div class="card-body">
                         <p v-if="item.status === false" v-on:click="toggleItemStatus(item)" class="card-name">Name: {{item.name}}</p>
-                        <input v-else autofocus type="text" v-model="item.name" v-on:keyup.enter="toggleItemStatus(item)" v-on:blur="toggleItemStatus(item)">
+                        <input v-else autofocus type="text" v-model="item.name" v-on:keyup.enter="updateProduct(item)">
                         <p class="card-id">Id: {{item.id}}</p>
                     </div>
                     <button v-on:click="deleteProduct(item.id)" class="card-delete">X</button>
@@ -33,7 +33,7 @@
     import axios from 'axios';
 
     export default {
-        name: 'items',
+        name: 'test',
         mounted() {
             console.log('mounted');
             this.getProducts();
@@ -68,7 +68,7 @@
                 axios.post("http://blog.local/api/products/store", {
                     'name': this.newProduct
                 }).then((response) => {
-                    this.Products.push({'name': this.newProduct, 'id': response.data});
+                    this.Products.push({'name': this.newProduct, 'id': response.data, 'status': false });
                 });
             },
             deleteProduct: function (id) {
@@ -86,8 +86,13 @@
             toggleItemStatus: function (product) {
                 product.status = !product.status;
             },
-            updateProduct: function (id) {
-
+            updateProduct: function (item) {
+                axios.patch("http://blog.local/api/products/update", {
+                    'name': item.name,
+                    'id': item.id,
+                }).then((response) => {
+                   this.toggleItemStatus(item);
+                });
             }
 
 

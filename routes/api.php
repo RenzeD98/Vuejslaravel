@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/products/all', array('middleware' => 'cors', 'uses' => 'ProductController@getAllProducts'));
 Route::post('/products/store', array('middleware' => 'cors', 'uses' => 'ProductController@storeProduct'));
 Route::delete('/products/delete', array('middleware' => 'cors', 'uses' => 'ProductController@deleteProduct'));
+Route::patch('/products/update', array('middleware' => 'cors', 'uses' => 'ProductController@updateProduct'));
 

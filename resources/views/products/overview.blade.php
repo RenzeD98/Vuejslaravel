@@ -7,6 +7,6 @@
                 <h1>Products view</h1>
             </div>
         </div>
-        <logincomponent></logincomponent>
+        <products></products>
     </div>
 @endsection
